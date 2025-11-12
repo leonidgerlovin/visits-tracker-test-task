@@ -5,7 +5,6 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   
   // Enabling Swagger
   const makeDocument = () => {
@@ -24,12 +23,19 @@ async function bootstrap() {
     },
   });
   
-  // Enable global validation
+  // Enabling global validation
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,      // Strip unknown properties
     forbidNonWhitelisted: true,
     transform: true,      // Auto-transform payloads to DTO instances
   }));
+
+  // Enabling CORS
+  app.enableCors({
+    origin: 'http://localhost:3001', // frontend origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    // credentials: true, // if you need cookies/auth
+  });
   
   await app.listen(process.env.PORT ?? 3000);
 }

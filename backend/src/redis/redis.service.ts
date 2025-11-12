@@ -39,9 +39,7 @@ export class RedisService {
   
   async mGet(keys: string[]): Promise<string[]> {
     return this.handleRedis(async () => {
-      console.log(keys)
       if (!keys.length) return [];
-      console.log(!keys);
       const values = await this.client.mGet(keys);
       return values.filter((v): v is string => v !== null);
     });

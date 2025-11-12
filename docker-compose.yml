@@ -1,6 +1,21 @@
 services:
-  api:
-    container_name: api
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+    depends_on:
+      - backend
+    environment:
+      VITE_BACKEND_URL: ${VITE_BACKEND_URL}
+
+  backend:
+    container_name: backend
     build:
       context: ./backend
     ports:
@@ -8,7 +23,6 @@ services:
     volumes:
       - ./backend/src:/app/src
       - ./backend/tsconfig.json:/app/tsconfig.json
-      - ./backend/package.json:/app/package.json
     depends_on:
       - redis
     environment:
@@ -19,12 +33,9 @@ services:
     container_name: redis
     image: redis:latest
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis-data:/data
-    environment:
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
 
 volumes:
   redis-data:
