@@ -3,7 +3,7 @@
 A small full-stack test task application for tracking website visits by country. This task was a real test exercise for a job.
 The app detects a visitor's country code on the frontend, sends it to the backend, stores the visit count in Redis, and displays aggregated visit statistics grouped by country.
 
-https://github.com/leonidgerlovin/visits-tracker-test-task/blob/main/picture.png
+![Picture]([image-url](https://github.com/leonidgerlovin/visits-tracker-test-task/blob/main/picture.png))
 
 ## Tech Stack
 
